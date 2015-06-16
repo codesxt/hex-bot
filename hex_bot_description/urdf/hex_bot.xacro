@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!-- Main file for hexapod robot definition -->
+<robot name="hex_bot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:include filename="$(find hex_bot_description)/materials/materials.xacro"/>
+  <xacro:include filename="$(find hex_bot_description)/urdf/hex_bot.gazebo"/>
+  <xacro:include filename="$(find hex_bot_description)/urdf/config.xacro"/>
+  <xacro:include filename="$(find hex_bot_description)/macros/structures.xacro"/>
+  <xacro:include filename="$(find hex_bot_description)/macros/inertials.xacro"/>
+
+  <link name="base_link"/>
+
+  <xacro:make_box name="body" len="${body_len}" wid="${body_wid}" hei="${body_hei}" mas="${body_mas}"/>
+
+  <xacro:make_leg prefix="LEG" parent="body"/>
+
+  <xacro:make_fixed_joint child="body" parent="base_link"/>
+</robot>

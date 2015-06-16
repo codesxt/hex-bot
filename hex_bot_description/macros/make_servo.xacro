@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!-- Macro to build a parameterized servo -->
+<robot name="hex_bot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:macro name="make_servo" params="name len wid hei mas parent">
+    <xacro:make_box name="${name}" len="${len}" wid="${wid}" hei="${hei}" mas="${mas}"/>
+    <xacro:make_fixed_joint child="${name}" parent="${parent}"/>
+  </xacro:macro>
+
+  <xacro:macro name="make_servo_with_origin" params="name len wid hei mas parent *origin">
+    <xacro:make_box_with_origin name="${name}" len="${len}" wid="${wid}" hei="${hei}" mas="${mas}">
+      <origin xyz="${-servo_len/2} 0 0" rpy="0 0 0"/>
+    </xacro:make_box_with_origin>
+
+    <joint name="${name}_to_${parent}_joint" type="revolute">
+      <parent link="${parent}"/>
+      <child link="${name}"/>
+      <insert_block name="origin"/>
+      <axis xyz="0 0 1"/>
+      <limit lower="-1.57" upper="1.57" effort="${servo_eff}" velocity="${servo_vel}"/>
+    </joint>
+  </xacro:macro>
+</robot>

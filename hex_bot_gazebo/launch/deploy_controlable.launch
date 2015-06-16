@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!-- Loads robot in gazebo simulator -->
+<launch>
+	<arg name="paused" default="true"/>
+	<arg name="use_sim_time" default="true"/>
+	<arg name="gui" default="true"/>
+	<arg name="headless" default="false"/>
+	<arg name="debug" default="false"/>
+	<arg name="use_gui" default="false"/>
+
+	<include file="$(find gazebo_ros)/launch/empty_world.launch">
+		<arg name="world_name" value="$(find hex_bot_gazebo)/worlds/hex_bot.world"/>
+		<arg name="debug" value="$(arg debug)" />
+		<arg name="gui" value="$(arg gui)" />
+		<arg name="paused" value="$(arg paused)"/>
+		<arg name="use_sim_time" value="$(arg use_sim_time)"/>
+		<arg name="headless" value="$(arg headless)"/>
+	</include>
+
+	<param name="use_gui" value="$(arg use_gui)"/>
+
+	<!-- Builds urdf from xacro files and publishes it on parameter server -->
+	<param name="robot_description" command="$(find xacro)/xacro.py $(find hex_bot_description)/urdf/hex_bot.xacro" />
+
+	<!-- Loads robot in Gazebo -->
+	<node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model hex_bot" />
+
+	<!-- Publishes robot states (necessary to properly visualize in Rviz) -->
+	<!--
+	<node pkg="robot_state_publisher" type="robot_state_publisher" name="rob_st_pub" />-->
+
+	<!-- Configurations to make the robot controlable -->
+	<rosparam file="$(find hex_bot_control)/config/hex_bot.yaml" command="load"/>
+	<node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="/hex_bot"
+		args="joint_state_controller
+					LEG_servo_1_controller
+					LEG_servo_2_controller
+					LEG_servo_3_controller"/>
+
+	<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
+		<remap from="/joint_states" to="/hex_bot/joint_states" />
+	</node>
+</launch>

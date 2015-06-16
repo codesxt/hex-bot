@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!-- File to include structures used in the robot -->
+<robot name="hex_bot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:include filename="$(find hex_bot_description)/macros/make_box.xacro"/>
+  <xacro:include filename="$(find hex_bot_description)/macros/make_servo.xacro"/>
+  <xacro:include filename="$(find hex_bot_description)/macros/make_leg.xacro"/>
+  <xacro:include filename="$(find hex_bot_description)/macros/make_transmissions.xacro"/>
+
+  <xacro:macro name="make_fixed_joint" params="child parent">
+    <joint name="${child}_to_${parent}_joint" type="fixed">
+      <parent link="${parent}"/>
+      <child link="${child}"/>
+    </joint>
+  </xacro:macro>
+
+  <xacro:macro name="make_fixed_joint_with_origin" params="child parent *origin">
+    <joint name="${child}_to_${parent}_joint" type="fixed">
+      <parent link="${parent}"/>
+      <child link="${child}"/>
+      <insert_block name="origin"/>
+    </joint>
+  </xacro:macro>
+
+</robot>

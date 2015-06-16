@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!-- Macro to build a parameterized box -->
+<robot name="hex_bot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:macro name="make_box" params="name len wid hei mas">
+  <link name="${name}">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="${len} ${wid} ${hei}"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="${len} ${wid} ${hei}"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+
+    <xacro:box_inertial x="${len}" y="${wid}" z="${hei}" mass="${mas}"/>
+  </link>
+  </xacro:macro>
+
+  <xacro:macro name="make_box_with_origin" params="name len wid hei mas *origin">
+  <link name="${name}">
+    <collision>
+      <insert_block name="origin" />
+      <geometry>
+        <box size="${len} ${wid} ${hei}"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <insert_block name="origin" />
+      <geometry>
+        <box size="${len} ${wid} ${hei}"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+
+    <xacro:box_inertial_with_origin x="${len}" y="${wid}" z="${hei}" mass="${mas}">
+      <insert_block name="origin"/>
+    </xacro:box_inertial_with_origin>
+  </link>
+  </xacro:macro>
+</robot>

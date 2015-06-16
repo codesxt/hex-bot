@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!-- Values to configure the main structure of the robot -->
+<robot name="hex_bot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:property name="body_len" value="0.15"/>
+  <xacro:property name="body_wid" value="0.10"/>
+  <xacro:property name="body_hei" value="0.05"/>
+  <xacro:property name="body_mas" value="0.90"/>
+
+  <xacro:property name="servo_len" value="0.025"/>
+  <xacro:property name="servo_wid" value="0.015"/>
+  <xacro:property name="servo_hei" value="0.025"/>
+  <xacro:property name="servo_mas" value="0.020"/>
+  <xacro:property name="servo_eff" value="3"/>
+  <xacro:property name="servo_vel" value="5"/>
+  <xacro:property name="servo_red" value="1"/>
+
+  <xacro:property name="femur_len" value="0.070"/>
+  <xacro:property name="femur_wid" value="0.010"/>
+  <xacro:property name="femur_hei" value="0.015"/>
+  <xacro:property name="femur_mas" value="0.100"/>
+
+  <xacro:property name="tibia_len" value="0.070"/>
+  <xacro:property name="tibia_wid" value="0.010"/>
+  <xacro:property name="tibia_hei" value="0.015"/>
+  <xacro:property name="tibia_mas" value="0.100"/>
+</robot>

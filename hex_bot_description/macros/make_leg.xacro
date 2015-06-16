@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!-- Macro to build a leg -->
+<robot name="hex_bot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:macro name="make_leg" params="prefix parent">
+    <xacro:make_servo_with_origin name="${prefix}_servo_1" len="${servo_len}" wid="${servo_wid}" hei="${servo_hei}" mas="${servo_mas}" parent="${parent}">
+      <origin xyz="0.05 0.06 0" rpy="0 0 -1.57"/>
+    </xacro:make_servo_with_origin>
+
+    <xacro:make_servo_with_origin name="${prefix}_servo_2" len="${servo_len}" wid="${servo_wid}" hei="${servo_hei}" mas="${servo_mas}" parent="${prefix}_servo_1">
+      <origin xyz="-${servo_len} 0 0" rpy="1.57 0 0"/>
+    </xacro:make_servo_with_origin>
+
+    <!-- Femur -->
+    <xacro:make_box name="${prefix}_femur" len="${femur_len}" wid="${femur_wid}" hei="${femur_hei}" mas="${femur_mas}"/>
+
+    <xacro:make_fixed_joint_with_origin child="${prefix}_femur" parent="${prefix}_servo_2">
+      <origin xyz="${-(femur_len/2 + servo_len)} 0 0" rpy="0 0 0"/>
+    </xacro:make_fixed_joint_with_origin>
+
+    <!-- Servo 3 + Tibia -->
+    <xacro:make_servo_with_origin name="${prefix}_servo_3" len="${servo_len}" wid="${servo_wid}" hei="${servo_hei}" mas="${servo_mas}" parent="${prefix}_femur">
+      <origin xyz="-${femur_len/2} 0 0" rpy="0 0 1.57"/>
+    </xacro:make_servo_with_origin>
+
+    <xacro:make_box name="${prefix}_tibia" len="${tibia_len}" wid="${tibia_wid}" hei="${tibia_hei}" mas="${tibia_mas}"/>
+
+    <xacro:make_fixed_joint_with_origin child="${prefix}_tibia" parent="${prefix}_servo_3">
+      <origin xyz="${-(tibia_len/2 + servo_len)} 0 0" rpy="0 0 0"/>
+    </xacro:make_fixed_joint_with_origin>
+
+    <!-- Transmissions -->
+    <xacro:make_position_transmission joint="${prefix}_servo_1_to_${parent}_joint" reduction="${servo_red}"/>
+
+    <xacro:make_position_transmission joint="${prefix}_servo_2_to_${prefix}_servo_1_joint" reduction="${servo_red}"/>
+
+    <xacro:make_position_transmission joint="${prefix}_servo_3_to_${prefix}_femur_joint" reduction="${servo_red}"/>
+</xacro:macro>
+</robot>
