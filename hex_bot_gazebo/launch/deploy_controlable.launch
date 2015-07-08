@@ -21,6 +21,7 @@
 
 	<!-- Builds urdf from xacro files and publishes it on parameter server -->
 	<param name="robot_description" command="$(find xacro)/xacro.py $(find hex_bot_description)/urdf/hex_bot.xacro" />
+	<!--param name="robot_description" command="$(find hex_bot_description)/urdf/hex_bot.urdf" /-->
 
 	<!-- Loads robot in Gazebo -->
 	<node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model hex_bot" />
@@ -36,6 +37,9 @@
 					LEG_servo_1_controller
 					LEG_servo_2_controller
 					LEG_servo_3_controller"/>
+	<!--node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="/hex_bot"
+		args="joint_state_controller
+					LEG_servo_1_controller"/-->
 
 	<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
 		<remap from="/joint_states" to="/hex_bot/joint_states" />

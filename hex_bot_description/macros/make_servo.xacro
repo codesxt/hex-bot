@@ -8,6 +8,7 @@
 
   <xacro:macro name="make_servo_with_origin" params="name len wid hei mas parent *origin">
     <xacro:make_box_with_origin name="${name}" len="${len}" wid="${wid}" hei="${hei}" mas="${mas}">
+      <!-- The servo's origin is set at the front half -->
       <origin xyz="${-servo_len/2} 0 0" rpy="0 0 0"/>
     </xacro:make_box_with_origin>
 
