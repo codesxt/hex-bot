@@ -11,7 +11,29 @@
 
   <xacro:make_box name="body" len="${body_len}" wid="${body_wid}" hei="${body_hei}" mas="${body_mas}"/>
 
-  <xacro:make_leg prefix="LEG" parent="body"/>
+  <xacro:make_leg prefix="FL" parent="body">
+    <origin xyz="0.05 0.06 0" rpy="0 0 -1.57"/>
+  </xacro:make_leg>
+
+  <xacro:make_leg prefix="FR" parent="body">
+    <origin xyz="0.05 -0.06 0" rpy="0 0 1.57"/>
+  </xacro:make_leg>
+
+  <xacro:make_leg prefix="ML" parent="body">
+    <origin xyz="0.00 0.06 0" rpy="0 0 -1.57"/>
+  </xacro:make_leg>
+
+  <xacro:make_leg prefix="MR" parent="body">
+    <origin xyz="0.00 -0.06 0" rpy="0 0 1.57"/>
+  </xacro:make_leg>
+
+  <xacro:make_leg prefix="BL" parent="body">
+    <origin xyz="-0.05 0.06 0" rpy="0 0 -1.57"/>
+  </xacro:make_leg>
+
+  <xacro:make_leg prefix="BR" parent="body">
+    <origin xyz="-0.05 -0.06 0" rpy="0 0 1.57"/>
+  </xacro:make_leg>
 
   <xacro:make_fixed_joint child="body" parent="base_link"/>
 </robot>

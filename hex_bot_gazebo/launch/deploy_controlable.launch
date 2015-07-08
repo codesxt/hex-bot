@@ -34,9 +34,24 @@
 	<rosparam file="$(find hex_bot_control)/config/hex_bot.yaml" command="load"/>
 	<node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="/hex_bot"
 		args="joint_state_controller
-					LEG_servo_1_controller
-					LEG_servo_2_controller
-					LEG_servo_3_controller"/>
+					FL_servo_1_controller
+					FL_servo_2_controller
+					FL_servo_3_controller
+					FR_servo_1_controller
+					FR_servo_2_controller
+					FR_servo_3_controller
+					ML_servo_1_controller
+					ML_servo_2_controller
+					ML_servo_3_controller
+					MR_servo_1_controller
+					MR_servo_2_controller
+					MR_servo_3_controller
+					BL_servo_1_controller
+					BL_servo_2_controller
+					BL_servo_3_controller
+					BR_servo_1_controller
+					BR_servo_2_controller
+					BR_servo_3_controller"/>
 	<!--node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="/hex_bot"
 		args="joint_state_controller
 					LEG_servo_1_controller"/-->
